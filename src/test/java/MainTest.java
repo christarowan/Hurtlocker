@@ -2,6 +2,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -22,5 +24,27 @@ public class MainTest {
     }
 
 
+    @Test
+    public void testPutItems() {
+
+        Map<String, String> keyValuePairs = new HashMap<>();
+
+        keyValuePairs.put("name", "milk");
+        keyValuePairs.put("price", "3.23");
+        keyValuePairs.put("type", "food");
+        keyValuePairs.put("expiration", "1/25/2016");
+
+        assertEquals("milk", keyValuePairs.get("name"));
+        assertEquals("3.23", keyValuePairs.get("price"));
+        assertEquals("food", keyValuePairs.get("type"));
+        assertEquals("1/25/2016", keyValuePairs.get("expiration"));
+
+
+        }
+
 
 }
+
+
+
+

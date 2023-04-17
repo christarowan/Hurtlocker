@@ -2,6 +2,8 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 ;
@@ -20,6 +22,9 @@ public class Main {
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(rawData);
 
+        Map<String, String> keyValuePairs = new HashMap<>();
+
+
         while (matcher.find()) {
             String name = matcher.group(1);
             String price = matcher.group(2);
@@ -29,7 +34,13 @@ public class Main {
             name = name.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
             price = price.replaceAll("[^\\d.]", "").toLowerCase();
             type = type.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
-            expiration = expiration.replaceAll("[^\\d/\\s]", ""); // Fix applied here
+            expiration = expiration.replaceAll("[^\\d/\\s]", "");
+
+            keyValuePairs.put("name", name);
+            keyValuePairs.put("price", price);
+            keyValuePairs.put("type", type);
+            keyValuePairs.put("expiration", expiration);
+
 
             System.out.println("Name: " +  name);
             System.out.println("Price: " + price);
