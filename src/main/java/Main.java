@@ -18,14 +18,16 @@ public class Main {
     }
 
     public void parseData(String rawData) {
-        String regexPattern = "(?i)naMe:(.*?);price:(\\d+\\.\\d+);type:(.*?);expiration:(\\d{1,2}/\\d{1,2}/\\d{4})[##^%*;]";
+        String regexPattern = "(?i)naMe:(.*?);price:(.*?);type:(.*?);expiration:(.*?)[##^%*;]";
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(rawData);
 
         Map<String, String> keyValuePairs = new HashMap<>();
+        int exceptionCount = 0;
 
 
         while (matcher.find()) {
+            try {
             String name = matcher.group(1);
             String price = matcher.group(2);
             String type = matcher.group(3);
@@ -42,11 +44,15 @@ public class Main {
             keyValuePairs.put("expiration", expiration);
 
 
-            System.out.println("Name: " +  name);
-            System.out.println("Price: " + price);
-            System.out.println("Type: " + type);
-            System.out.println("Expiration: " + expiration);
+           System.out.println("Name: " +  name);
+           System.out.println("Price: " + price);
+           System.out.println("Type: " + type);
+           System.out.println("Expiration: " + expiration);
+        } catch (IndexOutOfBoundsException e) {
+                exceptionCount++;
+            }
         }
+        System.out.println(exceptionCount);
     }
 
     public static void main(String[] args) throws Exception{
