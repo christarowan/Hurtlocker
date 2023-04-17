@@ -26,16 +26,28 @@ public class Main {
             String type = matcher.group(3);
             String expiration = matcher.group(4);
 
+
+            name = name.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+            price = price.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+            type = type.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+            expiration = expiration.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
+
+
             System.out.println("Name: " + name);
             System.out.println("Price: " + price);
             System.out.println("Type: " + type);
-            System.out.println("Expiration: " + expiration);
+
+
         }
     }
+
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
         System.out.println(output);
+
+
+
 
     }
 }
