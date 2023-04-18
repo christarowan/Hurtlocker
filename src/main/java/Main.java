@@ -2,6 +2,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -22,9 +23,7 @@ public class Main {
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(rawData);
 
-        Map<String, String> keyValuePairs = new HashMap<>();
         int exceptionCount = 0;
-
 
         while (matcher.find()) {
             try {
@@ -38,28 +37,23 @@ public class Main {
             type = type.replaceAll("[^a-zA-Z0-9\\s]", "").toLowerCase();
             expiration = expiration.replaceAll("[^\\d/\\s]", "");
 
-            keyValuePairs.put("name", name);
-            keyValuePairs.put("price", price);
-            keyValuePairs.put("type", type);
-            keyValuePairs.put("expiration", expiration);
+            String formattedOutput = String.format("Name: %s, Price: %s, Type: %s, Expiration: %s",
+                    name, price, type, expiration);
+            System.out.println(formattedOutput);
 
 
-           System.out.println("Name: " +  name);
-           System.out.println("Price: " + price);
-           System.out.println("Type: " + type);
-           System.out.println("Expiration: " + expiration);
-        } catch (IndexOutOfBoundsException e) {
+            } catch (IndexOutOfBoundsException e) {
                 exceptionCount++;
             }
         }
-        System.out.println(exceptionCount);
+      //  System.out.println(exceptionCount);
     }
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
         System.out.println(output);
-
-
+        Main main = new Main();
+        main.parseData(output);
 
 
     }

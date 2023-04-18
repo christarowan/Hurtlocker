@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 public class MainTest {
 
     @Test
-
     public void testParseDataOneItem() throws Exception {
         String rawData = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##";
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -19,8 +18,8 @@ public class MainTest {
         Main main = new Main();
         main.parseData(rawData);
 
-        String expectedOutput = "Name: milk\nPrice: 3.23\nType: food\nExpiration: 1/25/2016\n";
-        assertEquals(expectedOutput, outContent.toString());
+        String expectedOutput = "Name: milk, Price: 3.23, Type: food, Expiration: 1/25/2016";
+        assertEquals(expectedOutput, outContent.toString().trim());
     }
 
 
@@ -41,6 +40,18 @@ public class MainTest {
 
 
         }
+    @Test
+    public void testSample() {
+        String rawData = "naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##naME:BreaD;price:1.23;type:Food;expiration:1/02/2016##NAMe:BrEAD;price:1.23;type:Food;expiration:2/25/2016";
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        Main main = new Main();
+        main.parseData(rawData);
+
+        String expectedOutput = "";
+        assertEquals(expectedOutput, outContent.toString().trim());
+    }
 
 
 }
